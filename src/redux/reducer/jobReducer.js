@@ -12,6 +12,7 @@ const initialState = {
   applicationOfJob: null,
   error: null,
   message: null,
+  recommended: null,
 };
 
 const jobSlice = createSlice({
@@ -24,6 +25,18 @@ const jobSlice = createSlice({
     btnLoadingStart: (state) => {
       state.btnLoading = true;
     },
+
+
+
+    getRecommendedJobsSuccess: (state, action) => {
+  state.loading = false;
+  state.recommended = action.payload;
+},
+getRecommendedJobsFail: (state) => {
+  state.loading = false;
+  state.recommended = null;
+},
+
     getAllJObsSuccess: (state, action) => {
       state.loading = false;
       state.jobs = action.payload.jobs;
@@ -153,6 +166,7 @@ export const {
   updateAppSuccess,
   deleteFail,
   deleteSuccess,
+
 } = jobSlice.actions;
 
 export default jobSlice.reducer;

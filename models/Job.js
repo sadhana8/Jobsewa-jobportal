@@ -25,7 +25,17 @@ const schema = new mongoose.Schema(
     location: {
       type: String,
       required: true,
+
     },
+    skills: {
+     type: [String],
+      default: [],
+  },
+     tags: {
+      type: [String],
+       default: [],
+   },
+
     status: {
       type: String,
       enum: ["open", "closed"],
@@ -54,6 +64,7 @@ const schema = new mongoose.Schema(
         type: mongoose.Schema.Types.ObjectId,
         ref: "Application",
       },
+      // tfidfVector: { type: [Number], default: [] },
     ],
   },
   {

@@ -50,7 +50,7 @@ export async function POST(req) {
         }
       );
 
-    const { title, description, role, salary, experience, location, openings } =
+    const { title, description, role, salary, experience,skills, location, openings } =
       body;
 
     await Job.create({
@@ -59,6 +59,7 @@ export async function POST(req) {
       role,
       salary,
       experience,
+      skills,
       location,
       openings,
       company: companyData._id,

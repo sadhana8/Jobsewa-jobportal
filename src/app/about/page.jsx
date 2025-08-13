@@ -28,7 +28,7 @@ const About = () => {
             Ready to find your dream job?
           </h2>
           <p className="text-lg md:text-xl mb-8">
-            Join thousands of successful job seekers on Jobheaven
+            Join thousands of successful job seekers on Jobsewa
           </p>
           <Link href={"/jobs"}>
             <Button>Get Started</Button>

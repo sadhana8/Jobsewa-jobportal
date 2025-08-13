@@ -27,7 +27,7 @@ const Navbar = () => {
     dispatch(logoutSuccess());
   };
   return (
-    <nav className="z-50 sticky top-0 bg-gradient-to-r from-[#375c6b] via-[#203a43] to-[#2c5364] text-white shadow-md">
+    <nav className="z-50 sticky top-0 bg-gradient-to-r from-[#a1d3e7] via-[#3186a2] to-[#2c5364] text-white shadow-md">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">

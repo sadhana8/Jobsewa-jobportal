@@ -22,6 +22,7 @@ const schema = new mongoose.Schema(
     role: {
       type: String,
       enum: ["jobseeker", "recruiter"],
+      default: "jobseeker",
       requiered: true,
     },
     bio: {

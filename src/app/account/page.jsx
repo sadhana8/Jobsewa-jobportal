@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 import { redirect } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -8,6 +9,7 @@ import Skill from "./(component)/Skill";
 import Company from "./(component)/Company";
 import SavedJob from "./(component)/SavedJob";
 import AppliedJobs from "./(component)/AppliedJobs";
+import RecommendedJobs from "@/components/RecommendationJobs"
 
 const Account = () => {
   const { isAuth, user, btnLoading, loading } = useSelector(
@@ -44,6 +46,7 @@ const Account = () => {
 
               {user.role === "jobseeker" && <SavedJob savedJobs={savedJobs} />}
               {user.role === "jobseeker" && <AppliedJobs jobs={applications} />}
+              {user.role === "jobseeker" && <RecommendedJobs userId={user?._id} />}
             </div>
           )}
         </div>

@@ -1,30 +1,40 @@
-// app/api/job/search/route.ts
 import { connectDb } from "@/connectDb";
 import { NextResponse } from "next/server";
 import CheckAuth from "../../../../../middlewares/isAuth";
 import { Job } from "../../../../../models/Job";
 
-
 export async function GET(req) {
   try {
-    await connectDb();
+    connectDb();
 
     const { searchParams } = new URL(req.url);
+
     const token = searchParams.get("token");
-    const query = searchParams.get("query"); // keyword for search
 
     const user = await CheckAuth(token);
 
-    if (!user) {
-      return NextResponse.json({ message: "Please Login" }, { status: 401 });
-    }
+    if (!user)
+      return NextResponse.json(
+        {
+          message: "Please Login",
+        },
+        {
+          status: 400,
+        }
+      );
 
-    const jobs = await Job.find({
-      title: { $regex: query, $options: "i" }, // case-insensitive match
-    }).limit(20); // limit to 20 results
+    const id = searchParams.get("id");
+    const job = await Job.findById(id);
 
-    return NextResponse.json(jobs);
+    return NextResponse.json(job);
   } catch (error) {
-    return NextResponse.json({ message: error.message }, { status: 500 });
+    return NextResponse.json(
+      {
+        message: error.message,
+      },
+      {
+        status: 500,
+      }
+    );
   }
 }

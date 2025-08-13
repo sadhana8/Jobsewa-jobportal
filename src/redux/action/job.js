@@ -22,6 +22,7 @@ import {
   updateAppSuccess,
   updateFail,
   updateSuccess,
+
 } from "../reducer/jobReducer";
 import Cookies from "js-cookie";
 import { getUser } from "./user";
@@ -224,5 +225,48 @@ export const deleteJob = (id) => async (dispatch) => {
     dispatch(getAllJobs());
   } catch (error) {
     dispatch(deleteFail(error.response.data.message));
+  }
+};
+export const deleteApplication = (id, jobId) => async (dispatch) => {
+  try {
+    dispatch(btnLoadingStart());
+
+    const { data } = await axios.delete(
+      "/api/job/application/delete?token=" + Cookies.get("token") + "&id=" + id
+    );
+
+    dispatch(deleteSuccess(data));
+    dispatch(getAllApplications());
+    dispatch(applicationofjob(jobId));
+  } catch (error) {
+    dispatch(deleteFail(error.response.data.message));
+  }
+}
+export const deleteSavedJob = (id) => async (dispatch) => {
+  try {
+    dispatch(btnLoadingStart());
+
+    const { data } = await axios.delete(
+      "/api/job/saved/delete?token=" + Cookies.get("token") + "&id=" + id
+    );
+
+    dispatch(deleteSuccess(data));
+    dispatch(getUser());
+  } catch (error) {
+    dispatch(deleteFail(error.response.data.message));
+  }
+}
+
+
+
+export const getRecommendedJobs = () => async (dispatch) => {
+  try {
+    dispatch(loadingStart());
+
+    const { data } = await axios.get(`app/api/job/recommended?token=${Cookies.get("token")}`);
+
+    dispatch(getAllJObsSuccess(data)); 
+  } catch (error) {
+    dispatch(getAllJObsFail(error.response?.data?.message || "Error fetching recommendations"));
   }
 };

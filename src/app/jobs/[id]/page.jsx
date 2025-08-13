@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 import Loading from "@/components/loading";
 import { Button } from "@/components/ui/button";
@@ -85,6 +86,7 @@ const JobPage = () => {
   const [role, setrole] = useState("");
   const [salary, setSalary] = useState("");
   const [experience, setexperience] = useState("");
+  const [skills, setskills] = useState("");
   const [location, setlocation] = useState("");
   const [openings, setOpenings] = useState("");
   const [status, setStatus] = useState("");
@@ -96,6 +98,7 @@ const JobPage = () => {
     setrole(job.role);
     setSalary(job.salary);
     setexperience(job.experience);
+    setskills(job.skills);
     setlocation(job.location);
     setOpenings(job.openings);
     setStatus(job.status);
@@ -110,6 +113,7 @@ const JobPage = () => {
         role,
         salary,
         experience,
+        skills,
         location,
         openings,
         status,
@@ -147,6 +151,9 @@ const JobPage = () => {
                 <p className="flex items-center mt-2 gap-2">
                   <BriefcaseBusiness />{" "}
                   {job.experience === 0 ? "Fresher" : job.experience + " Years"}
+                </p>
+                <p className="flex items-center mt-2 gap-2">
+                  Skills - {job.skills}
                 </p>
                 <p className="flex items-center mt-2 gap-2">
                   Salary - ₹{job.salary} P.A
@@ -331,6 +338,15 @@ const JobPage = () => {
                 className="col-span-3"
                 value={experience}
                 onChange={(e) => setexperience(e.target.value)}
+              />
+            </div>
+             <div className="grid grid-cols-4 items-center gpa-4">
+              <Label>Skills</Label>
+              <Input
+                type="text"
+                className="col-span-3"
+                value={skills}
+                onChange={(e) => setskills(e.target.value)}
               />
             </div>
             <div className="grid grid-cols-4 items-center gpa-4">

@@ -14,6 +14,8 @@ import { Button } from "./ui/button";
 import { useDispatch, useSelector } from "react-redux";
 import { ApplyForJob } from "@/redux/action/job";
 
+
+
 const JobCard = ({ job }) => {
   const { user } = useSelector((state) => state.user);
 
@@ -70,6 +72,7 @@ const JobCard = ({ job }) => {
         </Link>
 
         {user && user.role === "jobseeker" && (
+        
           <>
             {applied ? (
               <p className="text-green-500">Already Applied</p>
@@ -84,7 +87,9 @@ const JobCard = ({ job }) => {
                 )}
               </>
             )}
-          </>
+      
+          </>      
+          
         )}
       </CardFooter>
     </Card>

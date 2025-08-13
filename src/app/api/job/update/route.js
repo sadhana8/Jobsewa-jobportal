@@ -66,6 +66,7 @@ export async function POST(req) {
       role,
       salary,
       experience,
+      skills,
       location,
       openings,
       status,
@@ -76,6 +77,7 @@ export async function POST(req) {
     job.role = role;
     job.salary = salary;
     job.experience = experience;
+    job.skills = skills;
     job.location = location;
     job.openings = openings;
     job.status = status;

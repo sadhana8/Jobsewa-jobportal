@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,18 +19,57 @@ const Register = () => {
   const [bio, setbio] = useState("");
   const [resume, setresume] = useState("");
   const [profilePic, setprofilePic] = useState("");
+  const [errors, setErrors] = useState({});
 
   const { isAuth, btnLoading } = useSelector((state) => state.user);
 
   if (isAuth) return redirect("/");
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const dispatch = useDispatch();
 
   const submitHandler = (e) => {
     e.preventDefault();
-    const formdata = new FormData();
 
+    // Regex patterns
+    const patterns = {
+      name: /^[A-Za-z\s]{3,30}$/,
+      email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+      password: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+      phone: /^\d{10}$/,
+    };
+
+    // Validation
+    let newErrors = {};
+
+    if (!patterns.name.test(name)) {
+      newErrors.name = "Name must be 3-30 letters only.";
+    }
+    if (!patterns.email.test(email)) {
+      newErrors.email = "Invalid email address.";
+    }
+    if (!patterns.password.test(password)) {
+      newErrors.password =
+        "Password must be 8+ chars, include uppercase, lowercase, number & special char.";
+    }
+    if (!patterns.phone.test(phoneNumber)) {
+      newErrors.phoneNumber = "Phone number must be exactly 10 digits.";
+    }
+    if (!profilePic) {
+      newErrors.profilePic = "Profile picture is required.";
+    }
+    if (role === "jobseeker" && !resume) {
+      newErrors.resume = "Resume is required for job seekers.";
+    }
+
+    // Stop if errors exist
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    setErrors({});
+
+    const formdata = new FormData();
     formdata.append("role", role);
     formdata.append("name", name);
     formdata.append("email", email);
@@ -37,11 +77,9 @@ const Register = () => {
     formdata.append("phoneNumber", phoneNumber);
     formdata.append("profilePic", profilePic);
 
-    {
-      role === "jobseeker" && formdata.append("bio", bio);
-    }
-    {
-      role === "jobseeker" && formdata.append("resume", resume);
+    if (role === "jobseeker") {
+      formdata.append("bio", bio);
+      formdata.append("resume", resume);
     }
 
     dispatch(registerUser(formdata));
@@ -70,6 +108,7 @@ const Register = () => {
               <option value="jobseeker">JobSeeker</option>
               <option value="recruiter">Recruiter</option>
             </select>
+
             {role && (
               <>
                 <Label>Name</Label>
@@ -80,6 +119,8 @@ const Register = () => {
                   onChange={(e) => setName(e.target.value)}
                   required
                 />
+                {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
+
                 <Label>Email</Label>
                 <Input
                   type="email"
@@ -88,6 +129,8 @@ const Register = () => {
                   onChange={(e) => setemail(e.target.value)}
                   required
                 />
+                {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+
                 <Label>Password</Label>
                 <Input
                   type="password"
@@ -96,6 +139,10 @@ const Register = () => {
                   onChange={(e) => setpassword(e.target.value)}
                   required
                 />
+                {errors.password && (
+                  <p className="text-red-500 text-sm">{errors.password}</p>
+                )}
+
                 <Label>PhoneNumber</Label>
                 <Input
                   type="number"
@@ -104,6 +151,10 @@ const Register = () => {
                   onChange={(e) => setphoneNumber(e.target.value)}
                   required
                 />
+                {errors.phoneNumber && (
+                  <p className="text-red-500 text-sm">{errors.phoneNumber}</p>
+                )}
+
                 <Label>ProfilePic</Label>
                 <Input
                   type="file"
@@ -111,6 +162,10 @@ const Register = () => {
                   onChange={(e) => setprofilePic(e.target.files[0])}
                   required
                 />
+                {errors.profilePic && (
+                  <p className="text-red-500 text-sm">{errors.profilePic}</p>
+                )}
+
                 {role === "jobseeker" && (
                   <>
                     <Label>Resume</Label>
@@ -119,6 +174,10 @@ const Register = () => {
                       accept="application/pdf"
                       onChange={(e) => setresume(e.target.files[0])}
                     />
+                    {errors.resume && (
+                      <p className="text-red-500 text-sm">{errors.resume}</p>
+                    )}
+
                     <Label>Bio</Label>
                     <Input
                       type="text"
@@ -128,6 +187,7 @@ const Register = () => {
                     />
                   </>
                 )}
+
                 <Button
                   disabled={btnLoading}
                   className="flex justify-center items-center gap-2"

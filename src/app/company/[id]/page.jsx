@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 import Loading from "@/components/loading";
 import { Button } from "@/components/ui/button";
@@ -46,7 +47,7 @@ const CompanyPage = () => {
     companyJobs = jobs.filter((job) => job.company === id);
   }
 
-  console.log(companyJobs);
+  // console.log(companyJobs);
 
   if (!isAuth) return redirect("/login");
 
@@ -65,6 +66,7 @@ const CompanyPage = () => {
   const [role, setrole] = useState("");
   const [salary, setSalary] = useState("");
   const [experience, setexperience] = useState("");
+  const [skills, setskills] = useState("");
   const [location, setlocation] = useState("");
   const [openings, setOpenings] = useState("");
 
@@ -87,6 +89,7 @@ const CompanyPage = () => {
         role,
         salary,
         experience,
+        skills,
         location,
         openings,
         clearInput
@@ -241,6 +244,15 @@ const CompanyPage = () => {
                         className="col-span-3"
                         value={experience}
                         onChange={(e) => setexperience(e.target.value)}
+                      />
+                    </div>
+                    <div className="grid grid-cols-4 items-center gpa-4">
+                      <Label>Skills</Label>
+                      <Input
+                        type="text"
+                        className="col-span-3"
+                        value={skills}
+                        onChange={(e) => setskills(e.target.value)}
                       />
                     </div>
                     <div className="grid grid-cols-4 items-center gpa-4">
