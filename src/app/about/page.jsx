@@ -7,7 +7,7 @@ const About = () => {
   return (
     <div className="min-h-screen">
       <section className="container px-4 py-8">
-        <img src={"/about.jpg"} className="w-[500px] m-auto mb-3" alt="" />
+        <img src={"/bg1.png"} className="w-[500px] m-auto mb-3" alt="" />
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl  font-bold mb-6">
             Our Mission At Job <span className="text-red-500">Sewa</span>

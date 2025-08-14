@@ -27,10 +27,12 @@ const schema = new mongoose.Schema(
       required: true,
 
     },
-    skills: {
-     type: [String],
-      default: [],
-  },
+    skills: [
+      {
+        type: String,
+        
+      },
+    ],
      tags: {
       type: [String],
        default: [],
@@ -64,7 +66,7 @@ const schema = new mongoose.Schema(
         type: mongoose.Schema.Types.ObjectId,
         ref: "Application",
       },
-      // tfidfVector: { type: [Number], default: [] },
+      
     ],
   },
   {
