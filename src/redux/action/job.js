@@ -57,6 +57,7 @@ export const AddJob =
     role,
     salary,
     experience,
+    skills,
     location,
     openings,
     clearInput
@@ -67,7 +68,7 @@ export const AddJob =
 
       const { data } = await axios.post(
         "/api/job/new?token=" + Cookies.get("token") + "&company=" + company,
-        { title, description, role, salary, experience, location, openings }
+        { title, description, role, salary, experience, skills,location, openings }
       );
 
       dispatch(addJobSuccess(data));
