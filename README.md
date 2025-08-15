@@ -102,72 +102,46 @@ npm start
 📡 API Endpoints
 Auth
 POST /api/auth/register → Register new user
-
 POST /api/auth/login → Login user
 
 Jobs
 POST /api/job/create → Create a job (Recruiter only)
-
 GET /api/job/list → List all jobs
-
 GET /api/job/recommended → Get recommended jobs for a jobseeker
-
 PUT /api/job/update/:id → Update a job (Recruiter only)
-
 DELETE /api/job/delete/:id → Delete a job
 
 Applications
 POST /api/job/apply/:id → Apply for a job
-
 GET /api/job/applied → Get user’s applied jobs
 
 🧠 Recommendation Algorithm
 We use TF-IDF (Term Frequency – Inverse Document Frequency) and Cosine Similarity to suggest jobs:
-
 Convert job descriptions and user skills into TF-IDF vectors.
-
 Use cosine similarity to measure closeness between the user and each job.
-
 Sort jobs by similarity score and prioritize recent ones.
 
 Formula:
-
-ini
-Copy
-Edit
 similarity = (A · B) / (||A|| * ||B||)
 Where A and B are TF-IDF vectors.
 
 🌍 Deployment (Vercel)
 Push your project to GitHub.
-
 Go to Vercel and import your repo.
-
 Add your .env variables in the Vercel dashboard.
-
 Deploy with one click.
 
 ✅ Validation Rules
 Registration
-
 Name: Required, min length 3
-
 Email: Valid format, unique
-
 Password: Min length 6, must contain letters & numbers
 
 Job Posting
-
 Title: Required
-
 Description: Min length 20
-
 Skills: At least one required
-
 Location: Required
-
-📸 Screenshots
-(![Add screenshots of your UI here](<Screenshot 2025-08-14 211037.png>) ![Add screenshots of your UI here](<Screenshot 2025-08-14 212133.png>) ![Add screenshots of your UI here](<Screenshot 2025-08-14 212334.png>) ![Add screenshots of your UI here](<Screenshot 2025-08-14 212545.png>) ![Add screenshots of your UI here](<Screenshot 2025-08-14 212810.png>) ![Add screenshots of your UI here](<Screenshot 2025-08-14 212837.png>))
 
 📜 License
 This project is licensed under the MIT License.
